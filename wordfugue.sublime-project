@@ -1,0 +1,17 @@
+{
+    "folders":
+    [
+        {
+            "path": ".",
+            "folder_exclude_patterns":
+            [
+                "htmlcov",
+                ".coverage"
+            ],
+            "file_exclude_patters":
+            [
+                ".coverage"
+            ]
+        }
+    ]
+}
