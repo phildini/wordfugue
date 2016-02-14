@@ -11,9 +11,15 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from unipath import Path
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+BASE_DIR = Path(__file__).ancestor(2)
+MEDIA_ROOT = BASE_DIR.child("media")
+STATIC_ROOT = BASE_DIR.child("static")
+STATICFILES_DIRS = (
+    BASE_DIR.child("assets"),
+)
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,13 +37,18 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.humanize',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'blog',
+    'home',
+    'suit_redactor',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -56,7 +67,7 @@ ROOT_URLCONF = 'wordfugue.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR.child("templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -114,6 +125,15 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SITE_ID = 1
+
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'WordFugue',
+    'SHOW_REQUIRED_ASTERISK': True,
+    'CONFIRM_UNSAVED_CHANGES': True,
+
+}
 
 
 # Static files (CSS, JavaScript, Images)

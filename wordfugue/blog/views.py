@@ -5,4 +5,4 @@ from . import models
 class BlogPostView(DetailView):
 
     model = models.BlogPost
-    template_name = 'blog_post.html'
+    template_name = 'blog/blog_post_page.html'
