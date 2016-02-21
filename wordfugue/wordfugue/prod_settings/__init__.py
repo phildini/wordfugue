@@ -20,9 +20,9 @@ INSTALLED_APPS += (
     'opbeat.contrib.django',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'opbeat.contrib.django.middleware.OpbeatAPMMiddleware',
-) + MIDDLEWARE_CLASSES
+] + MIDDLEWARE_CLASSES
 
 OPBEAT = {
     'ORGANIZATION_ID': get_env_variable("OPBEAT_ORG_ID"),
