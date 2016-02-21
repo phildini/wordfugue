@@ -21,7 +21,16 @@ STATICFILES_DIRS = (
     BASE_DIR.child("assets"),
 )
 
-
+def get_env_variable(var_name):
+    """ Get the environment variable or return exception """
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = "Set the %s env variable" % var_name
+        if DEBUG:
+            warnings.warn(error_msg)
+        else:
+            raise ImproperlyConfigured(error_msg)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
