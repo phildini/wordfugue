@@ -17,9 +17,6 @@ from unipath import Path
 BASE_DIR = Path(__file__).ancestor(2)
 MEDIA_ROOT = BASE_DIR.child("media")
 STATIC_ROOT = BASE_DIR.child("static")
-STATICFILES_DIRS = (
-    BASE_DIR.child("assets"),
-)
 
 def get_env_variable(var_name):
     """ Get the environment variable or return exception """
