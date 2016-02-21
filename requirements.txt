@@ -7,3 +7,4 @@ gunicorn==19.4.5
 opbeat==3.2.1
 Unipath==1.1
 whitenoise==2.0.6
+psycopg2==2.6.1
