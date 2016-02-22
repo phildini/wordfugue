@@ -138,7 +138,6 @@ SUIT_CONFIG = {
     'ADMIN_NAME': 'WordFugue',
     'SHOW_REQUIRED_ASTERISK': True,
     'CONFIRM_UNSAVED_CHANGES': True,
-
 }
 
 
