@@ -6,6 +6,8 @@ DATABASES['default'].update(db_from_env)
 
 DEBUG = False
 
+PROTOCOL = 'https://'
+
 ALLOWED_HOSTS = [
     'localhost',
     '.herokuapp.com',

@@ -10,7 +10,7 @@ class HomeView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(HomeView, self).get_context_data(*args, **kwargs)
-        context['posts'] = BlogPost.objects.all().order_by('-publish_date')[:5]
+        context['posts'] = BlogPost.published_posts.all().order_by('-publish_date')[:5]
         return context
 
 
