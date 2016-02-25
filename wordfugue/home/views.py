@@ -1,16 +1,15 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import ListView
 
 from blog.models import BlogPost
 
 
-class HomeView(TemplateView):
+class HomeView(ListView):
 
     template_name = "home/home.html"
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(HomeView, self).get_context_data(*args, **kwargs)
-        context['posts'] = BlogPost.published_posts.all().order_by('-publish_date')[:5]
-        return context
+    model = BlogPost
+    queryset = BlogPost.published_posts.all()
+    paginate_by = 10
+    paginate_orphans = 3
 
 

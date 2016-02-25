@@ -1,5 +1,7 @@
 <article>
     <h2><a href="{{ blogpost.get_absolute_url }}">{{ blogpost.title }}</a></h2>
-    <h3><small>by {{ blogpost.author }} on {{ blogpost.publish_date | date:"F j, o" }}</small></h3>
+    <h4><small>by {{ blogpost.author }} on {{ blogpost.publish_date | date:"F j, o" }}</small></h4>
+    <hr>
     <p>{{ blogpost.body | safe }}</p>
+    <hr>
 </article>
