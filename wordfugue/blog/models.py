@@ -6,12 +6,13 @@ from django.utils import timezone
 from model_utils.models import TimeStampedModel
 
 
-class PublishedPostManager(models.Manager):
+class PublishedPostForSiteManager(models.Manager):
 
-    def get_queryset(self):
-        return super(PublishedPostManager, self).get_queryset().filter(
+    def get_published_posts_for_site(self, site):
+        return super(PublishedPostForSiteManager, self).get_queryset().filter(
             is_published=True,
             publish_date__lte=timezone.now(),
+            sites__in=[site]
         )
 
 class BlogPost(TimeStampedModel):
@@ -22,8 +23,8 @@ class BlogPost(TimeStampedModel):
     slug = models.SlugField(unique=True)
     is_published = models.BooleanField()
     publish_date = models.DateTimeField(blank=True, null=True)
-    objects = models.Manager()
-    published_posts = PublishedPostManager()
+    sites = models.ManyToManyField(Site)
+    objects = PublishedPostForSiteManager()
 
     def __str__(self):
         return "{} by {}".format(self.title, self.author)
