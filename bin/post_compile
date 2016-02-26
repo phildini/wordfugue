@@ -1,0 +1,2 @@
+cd wordfugue
+python manage.py migrate --settings=wordfugue.prod_settings
