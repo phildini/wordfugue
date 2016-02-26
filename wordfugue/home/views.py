@@ -15,6 +15,6 @@ class HomeView(ListView):
     def get_queryset(self):
         return BlogPost.objects.get_published_posts_for_site(
             self.request.site
-        )
+        ).order_by('-publish_date')
 
 

@@ -6,6 +6,16 @@ from django.utils import timezone
 from model_utils.models import TimeStampedModel
 
 
+class Tag(TimeStampedModel):
+
+    tag = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, max_length=100)
+    sites = models.ManyToManyField(Site)
+
+    def __str__(self):
+        return self.tag
+
+
 class PublishedPostForSiteManager(models.Manager):
 
     def get_published_posts_for_site(self, site):
@@ -24,6 +34,7 @@ class BlogPost(TimeStampedModel):
     is_published = models.BooleanField()
     publish_date = models.DateTimeField(blank=True, null=True)
     sites = models.ManyToManyField(Site)
+    tags = models.ManyToManyField(Tag, blank=True)
     objects = PublishedPostForSiteManager()
 
     def __str__(self):
