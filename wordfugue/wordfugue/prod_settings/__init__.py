@@ -32,4 +32,4 @@ OPBEAT = {
     'SECRET_TOKEN': get_env_variable("OPBEAT_SECRET_KEY"),
 }
 
-STATIC_URL = '//logtacts.s3.amazonaws.com/assets/'
+STATIC_URL = '//wordfugue.s3.amazonaws.com/assets/'
