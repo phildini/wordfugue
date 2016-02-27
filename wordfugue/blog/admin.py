@@ -14,7 +14,7 @@ class BlogPostAdminForm(ModelForm):
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
     form = BlogPostAdminForm
-    prepopulated_fields = {"slug": ("title",)}
+    prepopulated_fields = {"slug": ("title",), "disqus_identifier": ("slug",)}
 
 
 @admin.register(Tag)

@@ -33,6 +33,11 @@ class BlogPost(TimeStampedModel):
     slug = models.SlugField(unique=True)
     is_published = models.BooleanField()
     publish_date = models.DateTimeField(blank=True, null=True)
+    disqus_identifier = models.CharField(
+        help_text="This shouldn't need to be changed",
+        blank=True,
+        max_length=255,
+    )
     sites = models.ManyToManyField(Site)
     tags = models.ManyToManyField(Tag, blank=True)
     objects = PublishedPostForSiteManager()
@@ -49,3 +54,9 @@ class BlogPost(TimeStampedModel):
             Site.objects.get_current().domain,
             self.get_absolute_url(),
         )
+
+    def get_disqus_id(self):
+        if self.disqus_identifier:
+            return self.disqus_identifier
+        else:
+            return self.slug
