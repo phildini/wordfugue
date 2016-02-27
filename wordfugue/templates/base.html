@@ -39,7 +39,7 @@
                         <ul class="nav navbar-nav">
                             {% get_flatpages '/about/' as about_pages %}
                             {% for page in about_pages %}
-                            {% if page.url == '/about/' %}<li><a href="{{ page.url }}">{{ page.title }}</a></li>{% endif %}
+                            {% if page.url == '/about/' %}<li><a href="/p/{{ page.url }}">{{ page.title }}</a></li>{% endif %}
                             {% endfor %}
                         </ul>
                         </div><!-- /.navbar-collapse -->
