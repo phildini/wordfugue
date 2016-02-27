@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'blog',
     'home',
     'suit_redactor',
+    'sitesettings',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -69,7 +70,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware',
-    'blog.middleware.SetSiteMiddleware',
+    'sitesettings.middleware.SiteSettingsMiddleware',
 ]
 
 ROOT_URLCONF = 'wordfugue.urls'

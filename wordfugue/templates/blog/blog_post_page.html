@@ -22,8 +22,12 @@ this.page.identifier = "{{ blogpost.get_disqus_id }}"; // Replace PAGE_IDENTIFIE
 (function() { // DON'T EDIT BELOW THIS LINE
 var d = document, s = d.createElement('script');
 
-s.src = '//wordfugue.disqus.com/embed.js';
+{% if request.sitesettings %}
 
+s.src = '//{{ request.sitesettings.settings.disqus_shortname }}.disqus.com/embed.js'
+{% else %}
+s.src = '//wordfugue.disqus.com/embed.js';
+{% endif %}
 s.setAttribute('data-timestamp', +new Date());
 (d.head || d.body).appendChild(s);
 })();
