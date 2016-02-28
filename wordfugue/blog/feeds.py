@@ -34,3 +34,6 @@ class BlogFeed(Feed):
 
     def item_description(self, item):
         return item.body
+
+    def item_pubate(self, item):
+        return item.publish_date
