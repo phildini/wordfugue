@@ -14,6 +14,10 @@ class BlogPostAdminForm(ModelForm):
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):
     form = BlogPostAdminForm
+    date_hierarchy = 'publish_date'
+    list_display = ('title', 'author', 'publish_date', 'is_published')
+    list_filter = ('is_published',)
+    search_fields = ('title', 'body')
     prepopulated_fields = {"slug": ("title",), "disqus_identifier": ("slug",)}
 
 
