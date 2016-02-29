@@ -2,6 +2,10 @@
 {% block meta %}
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="{{ blogpost.title }}" />
+<meta property="og:url" content="{{ blogpost.get_canonical_url }}" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ blogpost.title }}" />
+<meta property="og:site_name" content="{% if request.site %}{{ request.site.name }}{% else %}WordFugue{% endif %}" />
 {% endblock %}
 {% block blog_content %}
 {% include "blog/blog_post.html" %}
