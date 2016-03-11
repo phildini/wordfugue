@@ -162,7 +162,7 @@ CKEDITOR_CONFIGS = {
             ['TextColor', 'BGColor'],
             ['Link', 'Unlink'],
             ['Format', 'FontSize'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar'],
 
         ]
