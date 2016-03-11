@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.forms import ModelForm
+from ckeditor.widgets import CKEditorWidget
 from suit_redactor.widgets import RedactorWidget
 
 from .models import BlogPost, Tag
@@ -7,7 +8,7 @@ from .models import BlogPost, Tag
 class BlogPostAdminForm(ModelForm):
     class Meta:
         widgets = {
-            'body': RedactorWidget(editor_options={'lang': 'en'})
+            'body': CKEditorWidget
         }
 
 

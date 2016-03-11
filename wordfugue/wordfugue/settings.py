@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'home',
     'suit_redactor',
     'sitesettings',
+    'ckeditor',
 ]
 
 MIDDLEWARE_CLASSES = [
