@@ -151,3 +151,20 @@ SUIT_CONFIG = {
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'width': 700,
+        'toolbar_Custom': [
+            ['Source'],
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+            ['TextColor', 'BGColor'],
+            ['Link', 'Unlink'],
+            ['Format', 'FontSize'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language'],
+            ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar'],
+
+        ]
+    }
+}
