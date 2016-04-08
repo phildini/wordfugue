@@ -1,6 +1,13 @@
 <article>
     <h2><a href="{{ blogpost.get_absolute_url }}">{{ blogpost.title }}</a></h2>
     <h4><small>by {{ blogpost.author }} on {{ blogpost.publish_date | date:"F j, o" }}</small></h4>
+    <div class="tag-block">
+    {% for tag in blogpost.tags.all %}
+        <a href="/tag/{{ tag.slug }}">
+            <span class="label label-primary">{{ tag.tag }}</span>
+        </a>
+    {% endfor %}
+    </div>
     <hr>
     <p>{{ blogpost.body | safe }}</p>
     <hr>
