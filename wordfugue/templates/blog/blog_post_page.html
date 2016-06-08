@@ -2,8 +2,6 @@
 {% block title %}{{ blogpost.title }} - {% endblock %}
 {% block meta %}
 <meta name="url" content="{{ blogpost.get_canonical_url }}">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="{{ blogpost.title }}">
 <meta property="og:url" content="{{ blogpost.get_canonical_url }}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="{{ blogpost.title }}">
