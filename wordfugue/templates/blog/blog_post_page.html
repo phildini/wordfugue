@@ -1,11 +1,14 @@
 {% extends "blog_base.html" %}
 {% block title %}{{ blogpost.title }} - {% endblock %}
 {% block meta %}
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="{{ blogpost.title }}" />
-<meta property="og:url" content="{{ blogpost.get_canonical_url }}" />
-<meta property="og:type" content="article" />
-<meta property="og:title" content="{{ blogpost.title }}" />
+<meta name="url" content="{{ blogpost.get_canonical_url }}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ blogpost.title }}">
+<meta property="og:url" content="{{ blogpost.get_canonical_url }}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ blogpost.title }}">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="{% if request.site %}{{ request.site.name }}{% else %}WordFugue{% endif %}">
 {% endblock %}
 {% block blog_content %}
 {% include "blog/blog_post.html" %}
