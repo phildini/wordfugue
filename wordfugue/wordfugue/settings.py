@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.flatpages',
     'blog',
     'home',
+    'talks',
     'suit_redactor',
     'sitesettings',
     'ckeditor',

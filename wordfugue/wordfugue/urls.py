@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
     url(r'^feed/', BlogFeed()),
     url(r'^p/', include('django.contrib.flatpages.urls')),
+    url(r'^talks/', include('talks.urls', namespace='talks')),
     url(r'^', include('blog.urls', namespace='blog')),
 ]

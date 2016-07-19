@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ talk.title }} - {% endblock %}
+{% block meta %}
+<meta name="url" content="{{ talk.get_canonical_url }}">
+<meta property="og:url" content="{{ talk.get_canonical_url }}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ talk.title }}">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="{% if request.site %}{{ request.site.name }}{% else %}WordFugue{% endif %}">
+{% endblock %}
+{% block content %}
+<div class="col-md-8 col-md-offset-2">
+{% include "talks/talk.html" %}
+</div>
+{% endblock %}

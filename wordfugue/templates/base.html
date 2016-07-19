@@ -44,6 +44,9 @@
                             {% for page in about_pages %}
                             {% if page.url == '/about/' %}<li><a href="/p{{ page.url }}">{{ page.title }}</a></li>{% endif %}
                             {% endfor %}
+                            {% if request.site.id == 1 %}
+                                <li><a href="/talks/">Talks</a></li>
+                            {% endif %}
                             <li><a href="/feed/">Feed</a></li>
                         </ul>
                         </div><!-- /.navbar-collapse -->

@@ -1,0 +1,14 @@
+<article>
+<h2><a href="{{ talk.get_absolute_url }}">{{ talk.title }}</a></h2>
+<h4><small>by {{ talk.speaker }} on {{ talk.date | date:"F j, o" }}</small></h4>
+<div class="tag-block">
+{% for tag in talk.tags.all %}
+    <a href="/talks/tag/{{ tag.slug }}">
+        <span class="label label-primary">{{ tag.tag }}</span>
+    </a>
+{% endfor %}
+</div>
+<hr style="border-top: 1px dashed #a9a9a9">
+<p>{{ talk.body | safe }}</p>
+<hr style="border-top: 1px solid #a9a9a9">
+</article>
