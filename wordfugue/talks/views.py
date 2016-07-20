@@ -16,7 +16,7 @@ from braces.views import (
 class TalkView(DetailView):
 
     model = models.Talk
-    template_name = 'talks/talk.html'
+    template_name = 'talks/talk_page.html'
 
 
 class TalkListView(ListView):
