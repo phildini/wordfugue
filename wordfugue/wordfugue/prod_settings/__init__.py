@@ -13,6 +13,7 @@ ALLOWED_HOSTS = [
     '.herokuapp.com',
     '.wordfugue.com',
     '.philipjohnjames.com',
+    '.oboechick.com',
 ]
 
 SECRET_KEY = get_env_variable("WORDFUGUE_SECRET_KEY")
