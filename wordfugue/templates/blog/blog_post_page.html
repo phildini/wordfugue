@@ -8,6 +8,8 @@
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="{{ blogpost.title }}" />
+<meta name="twitter:domain" value="{% if request.site %}{{ request.site.domain }}{% else %}wordfugue.com{% endif %}" />
+<meta name="twitter:url" value="{{ blogpost.get_canonical_url }}" />
 {% endblock %}
 {% block blog_content %}
 {% include "blog/blog_post.html" %}
