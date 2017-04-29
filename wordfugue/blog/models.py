@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 from django.utils import timezone
+from django.utils.html import strip_tags
 from model_utils.models import TimeStampedModel
 
 
@@ -60,3 +61,6 @@ class BlogPost(TimeStampedModel):
             return self.disqus_identifier
         else:
             return self.slug
+
+    def description(self):
+        return strip_tags(self.body)[:140]
