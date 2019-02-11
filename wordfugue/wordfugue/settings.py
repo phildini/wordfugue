@@ -40,7 +40,7 @@ SECRET_KEY = "l0fg(g1eccb&x^*1guls1oblv8z)y1er41e&s9odh@z^r2rynv"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 PROTOCOL = "http://"
 
@@ -57,19 +57,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "django.contrib.flatpages",
-    "wagtail.contrib.forms",
-    "wagtail.contrib.redirects",
-    "wagtail.embeds",
-    "wagtail.sites",
-    "wagtail.users",
-    "wagtail.snippets",
-    "wagtail.documents",
-    "wagtail.images",
-    "wagtail.search",
-    "wagtail.admin",
-    "wagtail.core",
-    "modelcluster",
-    "taggit",
     "blog",
     "home",
     "talks",
@@ -78,19 +65,15 @@ INSTALLED_APPS = [
     "ckeditor",
 ]
 
-MIDDLEWARE_CLASSES = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.auth.middleware.SessionAuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django.contrib.sites.middleware.CurrentSiteMiddleware",
-    "wagtail.core.middleware.SiteMiddleware",
-    "wagtail.contrib.redirects.middleware.RedirectMiddleware",
-    "sitesettings.middleware.SiteSettingsMiddleware",
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'sitesettings.middleware.SiteSettingsMiddleware',
 ]
 
 ROOT_URLCONF = "wordfugue.urls"

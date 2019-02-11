@@ -4,7 +4,7 @@ from jsonfield import JSONField
 
 
 class SiteSettings(models.Model):
-    site = models.ForeignKey(Site)
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
     settings = JSONField()
 
     def __str__(self):

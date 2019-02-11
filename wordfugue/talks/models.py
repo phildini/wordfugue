@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.sites.models import Site
 from model_utils.models import TimeStampedModel
 from blog.models import Tag
@@ -8,7 +8,7 @@ from blog.models import Tag
 
 class Talk(TimeStampedModel):
 
-    speaker = models.ForeignKey(settings.AUTH_USER_MODEL)
+    speaker = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=255)
     body = models.TextField()
     slug = models.SlugField(unique=True)
