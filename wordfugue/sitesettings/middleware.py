@@ -3,9 +3,12 @@ from django.contrib.sites.models import Site
 from .models import SiteSettings
 
 
-class SiteSettingsMiddleware(object):
+class SiteSettingsMiddleware:
 
-    def process_request(self, request):
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
         try:
             request.site = Site.objects._get_site_by_request(request)
             settings.SITE_ID = request.site.id
@@ -16,3 +19,5 @@ class SiteSettingsMiddleware(object):
             request.sitesettings = SiteSettings.objects.get(site=request.site)
         except SiteSettings.DoesNotExist:
             request.site_settings = None
+
+        return self.get_response(request)
