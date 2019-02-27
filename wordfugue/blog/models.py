@@ -1,10 +1,64 @@
-from django.db import models
 from django.conf import settings
-from django.urls import reverse
 from django.contrib.sites.models import Site
+from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import strip_tags
 from model_utils.models import TimeStampedModel
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable, Page
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
+
+
+class BlogIndexPage(Page):
+    intro = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [FieldPanel("intro", classname="full")]
+
+
+class BlogTag(TaggedItemBase):
+    content_object = ParentalKey(
+        "BlogPage", related_name="tagged_items", on_delete=models.CASCADE
+    )
+
+
+class BlogPage(Page):
+    date = models.DateField("Post date")
+    intro = models.CharField(max_length=250)
+    body = RichTextField(blank=True)
+    tags = ClusterTaggableManager(through=BlogTag, blank=True)
+
+    search_fields = Page.search_fields + [
+        index.SearchField("intro"),
+        index.SearchField("body"),
+    ]
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [FieldPanel("date"), FieldPanel("tags")], heading="Blog information"
+        ),
+        FieldPanel("intro"),
+        FieldPanel("body"),
+        # InlinePanel("gallery_images", label="Gallery images"),
+    ]
+
+
+class BlogTagIndexPage(Page):
+    def get_context(self, request):
+
+        # Filter by tag
+        tag = request.GET.get("tag")
+        blogpages = BlogPage.objects.filter(tags__name=tag)
+
+        # Update template context
+        context = super().get_context(request)
+        context["blogpages"] = blogpages
+        return context
 
 
 class Tag(TimeStampedModel):
@@ -18,13 +72,15 @@ class Tag(TimeStampedModel):
 
 
 class PublishedPostForSiteManager(models.Manager):
-
     def get_published_posts_for_site(self, site):
-        return super(PublishedPostForSiteManager, self).get_queryset().filter(
-            is_published=True,
-            publish_date__lte=timezone.now(),
-            sites__in=[site]
+        return (
+            super(PublishedPostForSiteManager, self)
+            .get_queryset()
+            .filter(
+                is_published=True, publish_date__lte=timezone.now(), sites__in=[site]
+            )
         )
+
 
 class BlogPost(TimeStampedModel):
 
@@ -35,9 +91,7 @@ class BlogPost(TimeStampedModel):
     is_published = models.BooleanField()
     publish_date = models.DateTimeField(blank=True, null=True)
     disqus_identifier = models.CharField(
-        help_text="This shouldn't need to be changed",
-        blank=True,
-        max_length=255,
+        help_text="This shouldn't need to be changed", blank=True, max_length=255
     )
     sites = models.ManyToManyField(Site)
     tags = models.ManyToManyField(Tag, blank=True)
