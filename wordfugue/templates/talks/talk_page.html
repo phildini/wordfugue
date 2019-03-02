@@ -6,7 +6,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="{{ talk.title }}">
 <meta property="og:locale" content="en_US">
-<meta property="og:site_name" content="{% if request.site %}{{ request.site.name }}{% else %}WordFugue{% endif %}">
+<meta property="og:site_name" content="{% if request.wf_site %}{{ request.wf_site.name }}{% else %}WordFugue{% endif %}">
 {% endblock %}
 {% block content %}
 <div class="col-md-8 col-md-offset-2">
