@@ -8,8 +8,7 @@ from model_utils.models import TimeStampedModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
-                                         MultiFieldPanel)
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -48,6 +47,9 @@ class BlogPage(Page, TimeStampedModel):
     body = RichTextField(blank=True)
     disqus_identifier = models.CharField(
         help_text="This shouldn't need to be changed", blank=True, max_length=255
+    )
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=True, null=True
     )
     tags = ClusterTaggableManager(through=BlogTag, blank=True)
 

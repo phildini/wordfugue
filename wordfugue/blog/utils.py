@@ -35,6 +35,7 @@ def port_post_set(home_page_id, post_set):
         page.body = post.body
         page.disqus_identifier = post.disqus_identifier
         page.first_published_at = post.publish_date
+        page.author = post.author
 
         for tag in post.tags.all():
             wag_tag, _ = Tag.objects.get_or_create(name=tag.tag)
