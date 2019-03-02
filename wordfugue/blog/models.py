@@ -15,22 +15,31 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 
-class BlogIndexPage(Page):
+class BlogIndexPage(Page, TimeStampedModel):
     intro = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [FieldPanel("intro", classname="full")]
 
+    def __str__(self):
+        return f"Blog Index: {self.title}"
 
-class BlogTag(TaggedItemBase):
+    def get_admin_display_title(self):
+        return str(self)
+
+
+class BlogTag(TaggedItemBase, TimeStampedModel):
     content_object = ParentalKey(
         "BlogPage", related_name="tagged_items", on_delete=models.CASCADE
     )
 
 
-class BlogPage(Page):
-    date = models.DateField("Post date")
-    intro = models.CharField(max_length=250)
+class BlogPage(Page, TimeStampedModel):
+    date = models.DateTimeField("Post date")
+    intro = models.CharField(max_length=250, blank=True)
     body = RichTextField(blank=True)
+    disqus_identifier = models.CharField(
+        help_text="This shouldn't need to be changed", blank=True, max_length=255
+    )
     tags = ClusterTaggableManager(through=BlogTag, blank=True)
 
     search_fields = Page.search_fields + [
@@ -47,8 +56,20 @@ class BlogPage(Page):
         # InlinePanel("gallery_images", label="Gallery images"),
     ]
 
+    def __str__(self):
+        return f"Blog Post: {self.title}"
 
-class BlogTagIndexPage(Page):
+    def get_admin_display_title(self):
+        return str(self)
+
+    def get_disqus_id(self):
+        if self.disqus_identifier:
+            return self.disqus_identifier
+        else:
+            return self.slug
+
+
+class BlogTagIndexPage(Page, TimeStampedModel):
     def get_context(self, request):
 
         # Filter by tag
@@ -84,7 +105,9 @@ class PublishedPostForSiteManager(models.Manager):
 
 class BlogPost(TimeStampedModel):
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=True
+    )
     title = models.CharField(max_length=255)
     body = models.TextField()
     slug = models.SlugField(unique=True)
@@ -93,7 +116,7 @@ class BlogPost(TimeStampedModel):
     disqus_identifier = models.CharField(
         help_text="This shouldn't need to be changed", blank=True, max_length=255
     )
-    sites = models.ManyToManyField(Site)
+    sites = models.ManyToManyField(Site, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
     objects = PublishedPostForSiteManager()
 
