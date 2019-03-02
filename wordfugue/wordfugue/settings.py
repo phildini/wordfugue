@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-from unipath import Path
 
+from unipath import Path
 
 BASE_DIR = Path(__file__).ancestor(2)
 MEDIA_ROOT = BASE_DIR.child("media")
@@ -88,7 +88,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "wagtail.core.middleware.SiteMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
-    # 'sitesettings.middleware.SiteSettingsMiddleware',
+    "sitesettings.middleware.SiteSettingsMiddleware",
 ]
 
 ROOT_URLCONF = "wordfugue.urls"
