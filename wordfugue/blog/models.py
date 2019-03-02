@@ -8,7 +8,8 @@ from model_utils.models import TimeStampedModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
+                                         MultiFieldPanel)
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -25,6 +26,14 @@ class BlogIndexPage(Page, TimeStampedModel):
 
     def get_admin_display_title(self):
         return str(self)
+
+    def get_context(self, *args, **kwargs):
+        context = super().get_context(*args, **kwargs)
+
+        context["blog_entries"] = (
+            BlogPage.objects.child_of(self).live().order_by("-date")
+        )
+        return context
 
 
 class BlogTag(TaggedItemBase, TimeStampedModel):
