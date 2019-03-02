@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.sites.models import Site
+
 from .models import SiteSettings
 
 
@@ -10,14 +11,14 @@ class SiteSettingsMiddleware:
 
     def __call__(self, request):
         try:
-            request.site = Site.objects._get_site_by_request(request)
-            settings.SITE_ID = request.site.id
+            request.wf_site = Site.objects._get_site_by_request(request)
+            settings.SITE_ID = request.wf_site.id
         except Site.DoesNotExist:
-            request.site = None
+            request.wf_site = None
 
         try:
-            request.sitesettings = SiteSettings.objects.get(site=request.site)
+            request.sitesettings = SiteSettings.objects.get(site=request.wf_site)
         except SiteSettings.DoesNotExist:
-            request.site_settings = None
+            request.sitesettings = None
 
         return self.get_response(request)

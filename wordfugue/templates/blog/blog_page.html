@@ -1,19 +1,29 @@
 {% extends "blog_base.html" %}
-{% block title %}{{ blogpost.title }} - {% endblock %}
+{% block title %}{{ page.title }} - {% endblock %}
 {% block meta %}
-<meta name="url" content="{{ blogpost.get_canonical_url }}">
-<meta property="og:url" content="{{ blogpost.get_canonical_url }}">
+<meta name="url" content="{{ page.get_full_url }}">
+<meta property="og:url" content="{{ page.get_full_url }}">
 <meta property="og:type" content="article">
-<meta property="og:title" content="{{ blogpost.title }}">
+<meta property="og:title" content="{{ page.title }}">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="{{ blogpost.title }}" />
-<meta name="twitter:description" content="{{ blogpost.description }}" />
+<meta name="twitter:title" content="{{ page.title }}" />
+<meta name="twitter:description" content="{{ page.intro }}" />
 <meta name="twitter:domain" content="{% if request.wf_site %}{{ request.wf_site.domain }}{% else %}wordfugue.com{% endif %}" />
-<meta name="twitter:url" content="{{ blogpost.get_canonical_url }}" />
+<meta name="twitter:url" content="{{ page.get_full_url }}" />
 {% endblock %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+
 {% block blog_content %}
-{% include "blog/blog_post.html" %}
+{% with post=page %}
+{% include "blog/blog_post_snippet.html" %}
+{% endwith %}
+<p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+<hr />
 <div class="well">
 <div id="disqus_thread"></div>
 </div>
@@ -24,8 +34,8 @@
 */
 
 var disqus_config = function () {
-this.page.url = "{{ blogpost.get_canonical_url }}"; // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = "{{ blogpost.get_disqus_id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+this.page.url = "{{ page.get_full_url }}"; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "{{ page.get_disqus_id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
 };
 
 (function() { // DON'T EDIT BELOW THIS LINE

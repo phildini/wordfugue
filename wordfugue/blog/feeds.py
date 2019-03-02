@@ -1,13 +1,13 @@
 from django.contrib.syndication.views import Feed
-from django.urls import reverse
 from django.http import Http404
+
 from .models import BlogPost
 
 
 class BlogFeed(Feed):
 
     def get_feed(self, obj, request):
-        self.site = request.site
+        self.site = request.wf_site
         if not self.site:
             raise Http404()
         return super(BlogFeed, self).get_feed(obj, request)

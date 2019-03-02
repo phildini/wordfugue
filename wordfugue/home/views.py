@@ -1,6 +1,6 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import render
 from django.views.generic import ListView
-from django.contrib.sites.shortcuts import get_current_site
 
 from blog.models import BlogPost
 
@@ -14,7 +14,5 @@ class HomeView(ListView):
 
     def get_queryset(self):
         return BlogPost.objects.get_published_posts_for_site(
-            self.request.site
+            self.request.wf_site
         ).order_by('-publish_date')
-
-
