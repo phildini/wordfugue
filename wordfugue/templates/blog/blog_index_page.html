@@ -1,0 +1,17 @@
+{% extends "blog_base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+
+{% block blog_content %}
+    <h1>{{ page.title }}</h1>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% for post in blog_entries %}
+        {% include "blog/blog_post_snippet.html"%}
+    {% endfor %}
+
+{% endblock %}

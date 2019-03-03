@@ -37,8 +37,10 @@ Pillow = "==5.4.1"
 Unidecode = "==1.0.23"
 Willow = "==1.1"
 black = "*"
+django-ckeditor = "*"
 
 [dev-packages]
+"flake8" = "*"
 
 [requires]
 python_version = "3.6"
