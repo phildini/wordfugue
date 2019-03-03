@@ -8,7 +8,8 @@ from model_utils.models import TimeStampedModel
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
+                                         MultiFieldPanel)
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -35,6 +36,20 @@ class BlogIndexPage(Page, TimeStampedModel):
         return context
 
 
+class WordfugueHomePage(BlogIndexPage):
+    def get_template(self, request):
+        return "blog/blog_index_page.html"
+
+    def get_context(self, *args, **kwargs):
+        context = super().get_context(*args, **kwargs)
+        wf_blog_entries = context["blog_entries"]
+        other_site_entries = BlogPage.objects.live().exclude(restrict_to_site=True)
+        all_entries = wf_blog_entries | other_site_entries
+        context["blog_entries"] = all_entries.order_by("-date")
+
+        return context
+
+
 class BlogTag(TaggedItemBase, TimeStampedModel):
     content_object = ParentalKey(
         "BlogPage", related_name="tagged_items", on_delete=models.CASCADE
@@ -51,6 +66,7 @@ class BlogPage(Page, TimeStampedModel):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, blank=True, null=True
     )
+    restrict_to_site = models.BooleanField("Restrict to original site", default=False)
     tags = ClusterTaggableManager(through=BlogTag, blank=True)
 
     search_fields = Page.search_fields + [
@@ -60,7 +76,13 @@ class BlogPage(Page, TimeStampedModel):
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
-            [FieldPanel("date"), FieldPanel("tags")], heading="Blog information"
+            [
+                FieldPanel("date"),
+                FieldPanel("tags"),
+                FieldPanel("author"),
+                FieldPanel("restrict_to_site"),
+            ],
+            heading="Post Meta",
         ),
         FieldPanel("intro"),
         FieldPanel("body"),
